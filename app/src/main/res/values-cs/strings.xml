@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">pyLoad</string>
+    <string name="remotesettings_activity">pyLoad - Vzdálené Nastavení</string>
+
+    <string name="restart_failed">Restart failed files</string>
+    <string name="remote_settings">Vzdálené Nastavení</string>
+    <string name="no_packages">Žádné balíky.</string>
+    <string name="no_accounts">Žádné premiové účty.</string>
+    <string name="no_downloads">Žádné aktivní stahování.</string>
+    <string name="add_links">Přidat Odkazy</string>
+    <string name="settings">Nastavení</string>
+    <string name="refresh">Obnovit</string>
+    <string name="delete">Smazat</string>
+    <string name="restart">Restart</string>
+    <string name="general">Hlavní</string>
+    <string name="refresh_rate">Frekvence obnovení</string>
+    <string name="refresh_rate_desc">Čas v sekundách jak často se má aktualizovat okno Přehledu.</string>
+    <string name="server">Server</string>
+    <string name="ip">Adresa</string>
+    <string name="ip_desc">IP adresa nebo jmého hosta vzdáleného pyLoad Core.</string>
+    <string name="port">Port</string>
+    <string name="port_desc">Port ThriftBackend, který jste nastavili v sekci vzdáleného nastavení.</string>
+    <string name="username">Uživatelské jméno</string>
+    <string name="username_desc">Uživatelské Jméno použité pro přihlášení.</string>
+    <string name="password">Heslo</string>
+    <string name="login">Přihlášení</string>
+    <string name="pref_name">pyLoad - Předvolby</string>
+    <string name="no_connection">Nelze navázat spojení:</string>
+    <string name="bad_login">Chybné Jméno/Heslo.</string>
+    <string name="move">Přesunout umístění</string>
+    <string name="on">zapnuto</string>
+    <string name="off">vypnuto</string>
+    <string name="n_a">n/a</string>
+    <string name="success">Úspěch.</string>
+    <string name="cant_move_files">Nemůžete přesunout samostatné soubory.</string>
+    <string name="abort">Přerušit</string>
+    <string name="name">Jméno</string>
+    <string name="addlinks_desc">Přidat nový balík.</string>
+    <string name="destination">Cíl</string>
+    <string-array name="destination_list">
+        <item>Queue</item>
+        <item>Collector</item>
+    </string-array>
+    <string name="overview">Přehled</string>
+    <string name="collector">Collector</string>
+    <string name="queue">Fronta</string>
+    <string name="package_links">Sem vložte vaše odkazy.</string>
+    <string name="add">Přidat</string>
+    <string name="cancel">Zrušit</string>
+    <string name="toggle_server">Přepnout Server</string>
+    <string name="toggle_reconnect">Přepnout Reconnect</string>
+    <string name="lost_connection">Ztráta spojení. Prosím zkuste obnovit.</string>
+    <string name="retrieve_captcha">Retrieve captcha tasks</string>
+    <string name="retrieve_captcha_desc">Get captcha tasks from pyLoad when Overview is displayed.</string>
+    <string name="enter">Vložit</string>
+    <string name="captcha_dialog_titel">Prosím vložte text</string>
+    <string name="invert_tabs_desc">Můžete změnit vzhled ikony záložky jestli lépe vyhovuje vašemu tématu.</string>
+    <string name="ssl">SSL Spojení</string>
+    <string name="ssl_desc">Naváže bezpečné spojení k jádru pokud aktivujete SSL</string>
+    <string name="ssl_validate">Kontrola SSL Certifikátu</string>
+    <string name="ssl_validate_desc">If "SSL Connection" is enabled, check that the certificate presented by the core is
+        signed by a CA known by Android
+    </string>
+    <string name="old_server">Verze serveru neodpovídá, prosím použijte pyLoad %s.</string>
+    <string name="choose_file">Container File</string>
+    <string name="choose">Vybrat</string>
+    <string name="current_dir">Současný adresář:</string>
+    <string name="file_size">Velikost Souboru:</string>
+    <string name="parent_dir">Nadřazený adresář</string>
+    <string name="eula_title">Licence</string>
+    <string name="eula_accept">Akceptovat</string>
+    <string name="eula_refuse">Odmítnout</string>
+    <string name="choose_action">Vybrat akci</string>
+    <string name="close">Zavřít</string>
+    <string name="fileinfo_title">Informace o souboru</string>
+    <string name="plugin">Plugin</string>
+    <string name="status">Status</string>
+    <string name="size">Velikost</string>
+    <string name="error">Chyba</string>
+    <string name="labelPackage">Balík</string>
+    <string name="lambda"></string>
+    <string name="server_settings">Server nastavení</string>
+    <string name="general_config">Hlavní konfigurace</string>
+    <string name="plugin_config">Konfigurace pluginu</string>
+    <string name="accounts">Účty</string>
+    <string name="valid">platný</string>
+    <string name="invalid">neplatný</string>
+    <string name="trafficleft">Traffic:</string>
+    <string name="validuntil">Vyprší:</string>
+    <string name="certificate_error">SSL certifikát není akceptován. Přidejte ho do androidu nebo vypněte kontrolu.</string>
+    <string name="connect_timeout">Připojování vypršelo. Prosím zkontrolujte, že nastavení serveru jsou správně.</string>
+    <string name="socket_error">Could not connect to target host. Check the server settings, your network configuration
+        or port forwarding.
+    </string>
+    <string name="connect_error">Could not connect to pyLoad. Check that pyLoad is running and server settings are
+        correct.
+    </string>
+    <string name="language">Jazyk</string>
+    <string name="language_desc">Jazyk aplikace. Změna potřebuje restart aplikace.</string>
+    <string-array name="languages">
+        <item>Default</item>
+        <item>English</item>
+        <item>German</item>
+        <item>French</item>
+        <item>Italian</item>
+    </string-array>
+    <string name="folder">Adresář</string>
+    <string name="invert_tabs">Obrátit barvy ikony záložky</string>
+    <string name="submit">Odeslat</string>
+    <string name="unlimited">bez limitu</string>
+</resources>
