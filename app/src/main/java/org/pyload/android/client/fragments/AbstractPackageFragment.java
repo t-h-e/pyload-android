@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.thrift.TException;
 import org.pyload.android.client.R;
 import org.pyload.android.client.module.Utils;
 import org.pyload.android.client.pyLoadApp;
@@ -132,8 +133,15 @@ public abstract class AbstractPackageFragment extends ExpandableListFragment
 				app.addTask(new GuiTask(new Runnable() {
 
 					public void run() {
-						client = app.getClient();
-						client.restartFile(file.fid);
+						try {
+							client = app.getClient();
+							synchronized (client) {
+								client.restartFile(file.fid);
+							}
+						} catch (TException e) {
+							Log.e("pyLoad", "Thrift problem", e);
+						}
+
 					}
 				}, app.handleSuccess));
 
@@ -143,11 +151,17 @@ public abstract class AbstractPackageFragment extends ExpandableListFragment
 				app.addTask(new GuiTask(new Runnable() {
 
 					public void run() {
-						client = app.getClient();
-						ArrayList<Integer> fids = new ArrayList<Integer>();
-						fids.add(file.fid);
+						try {
+							client = app.getClient();
+							ArrayList<Integer> fids = new ArrayList<Integer>();
+							fids.add(file.fid);
+                            synchronized (client) {
+                                client.deleteFiles(fids);
+                            }
+						} catch (TException e) {
+							Log.e("pyLoad", "Thrift problem", e);
+						}
 
-						client.deleteFiles(fids);
 					}
 				}, app.handleSuccess));
 
@@ -180,8 +194,15 @@ public abstract class AbstractPackageFragment extends ExpandableListFragment
 				app.addTask(new GuiTask(new Runnable() {
 
 					public void run() {
-						client = app.getClient();
-						client.restartPackage(pack.pid);
+						try {
+							client = app.getClient();
+                            synchronized (client) {
+                                client.restartPackage(pack.pid);
+                            }
+						} catch (TException e) {
+							Log.e("pyLoad", "Thrift problem", e);
+						}
+
 					}
 				}, app.handleSuccess));
 
@@ -191,10 +212,17 @@ public abstract class AbstractPackageFragment extends ExpandableListFragment
 				app.addTask(new GuiTask(new Runnable() {
 
 					public void run() {
-						client = app.getClient();
-						ArrayList<Integer> pids = new ArrayList<Integer>();
-						pids.add(pack.pid);
-						client.deletePackages(pids);
+						try {
+							client = app.getClient();
+							ArrayList<Integer> pids = new ArrayList<Integer>();
+							pids.add(pack.pid);
+                            synchronized (client) {
+                                client.deletePackages(pids);
+                            }
+						} catch (TException e) {
+							Log.e("pyLoad", "Thrift problem", e);
+						}
+
 					}
 				}, app.handleSuccess));
 
@@ -205,15 +233,21 @@ public abstract class AbstractPackageFragment extends ExpandableListFragment
 				app.addTask(new GuiTask(new Runnable() {
 
 					public void run() {
-						client = app.getClient();
-						Destination newDest;
-						if (dest == 0) {
-							newDest = Destination.Collector;
-						} else {
-							newDest = Destination.Queue;
+						try {
+							client = app.getClient();
+							Destination newDest;
+							if (dest == 0) {
+								newDest = Destination.Collector;
+							} else {
+								newDest = Destination.Queue;
+							}
+                            synchronized (client) {
+                                client.movePackage(newDest, pack.pid);
+                            }
+						} catch (TException e) {
+							Log.e("pyLoad", "Thrift problem", e);
 						}
 
-						client.movePackage(newDest, pack.pid);
 					}
 				}, app.handleSuccess));
 
@@ -293,11 +327,18 @@ public abstract class AbstractPackageFragment extends ExpandableListFragment
 		GuiTask task = new GuiTask(new Runnable() {
 
 			public void run() {
-				client = app.getClient();
-				if (dest == 0)
-					data = client.getQueueData();
-				else
-					data = client.getCollectorData();
+				try {
+					client = app.getClient();
+                    synchronized (client) {
+                        if (dest == 0)
+                            data = client.getQueueData();
+                        else
+                            data = client.getCollectorData();
+                    }
+				} catch (TException e) {
+					Log.e("pyLoad", "Thrift problem", e);
+				}
+
 			}
 		}, mUpdateResults);
 

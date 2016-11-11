@@ -3,6 +3,7 @@ package org.pyload.android.client.fragments;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.thrift.TException;
 import org.pyload.android.client.R;
 import org.pyload.android.client.pyLoadApp;
 import org.pyload.android.client.module.GuiTask;
@@ -107,22 +108,30 @@ public class ConfigSectionFragment extends Fragment {
 			@Override
 			public void run() {
 
-				Client client = app.getClient();
+				Client client = null;
+				try {
+					client = app.getClient();
+					for (ConfigItem item : section.items) {
+						ConfigItemView view = items.get(item.name);
+						String newValue = view.getValue();
+						if (!item.value.equals(newValue)) {
+							Log.d("pyLoad", String.format(
+									"Set config value: %s, %s, %s", type,
+									section.name, item.name));
 
-				for (ConfigItem item : section.items) {
-					ConfigItemView view = items.get(item.name);
-					String newValue = view.getValue();
-					if (!item.value.equals(newValue)) {
-						Log.d("pyLoad", String.format(
-								"Set config value: %s, %s, %s", type,
-								section.name, item.name));
-
-						client.setConfigValue(section.name, item.name,
-								newValue, type);
+							synchronized (client) {
+								client.setConfigValue(section.name, item.name,
+										newValue, type);
+							}
+						}
 					}
+
+					getFragmentManager().popBackStack();
+				} catch (TException e) {
+					Log.e("pyLoad", "Thrift problem", e);
 				}
 
-				getFragmentManager().popBackStack();
+
 
 			}
 

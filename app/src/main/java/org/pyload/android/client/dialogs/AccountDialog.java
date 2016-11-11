@@ -5,12 +5,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.apache.thrift.TException;
 import org.pyload.android.client.R;
 import org.pyload.android.client.module.GuiTask;
 import org.pyload.android.client.module.Utils;
@@ -32,8 +35,15 @@ public class AccountDialog extends DialogFragment {
         final pyLoadApp app = (pyLoadApp) getActivity().getApplication();
         GuiTask task = new GuiTask(new Runnable() {
             public void run() {
-                Pyload.Client client = app.getClient();
-                adapter.setData(client.getAccounts(false));
+                Pyload.Client client = null;
+                try {
+                    client = app.getClient();
+                    synchronized (client) {
+                        adapter.setData(client.getAccounts(false));
+                    }
+                } catch (TException e) {
+                    Log.e("pyLoad", "Thrift problem", e);
+                }
             }
         });
         app.addTask(task);

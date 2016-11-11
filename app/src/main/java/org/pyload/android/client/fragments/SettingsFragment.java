@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.thrift.TException;
 import org.pyload.android.client.R;
 import org.pyload.android.client.pyLoadApp;
 import org.pyload.android.client.module.GuiTask;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,9 +93,15 @@ public class SettingsFragment extends ListFragment {
 		GuiTask task = new GuiTask(new Runnable() {
 
 			public void run() {
+				try{
 				Client client = app.getClient();
-				generalData = client.getConfig();
-				pluginData = client.getPluginConfig();
+				synchronized (client) {
+					generalData = client.getConfig();
+					pluginData = client.getPluginConfig();
+				}
+				} catch (TException e) {
+					Log.e("pyLoad", "Thrift problem", e);
+				}
 
 			}
 		}, mUpdateResults);
